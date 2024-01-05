@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+html {
+  width: 100% !important;
+}
 body{
+  width: 100%;
   margin: 0;
   padding:0
 }
@@ -23,6 +27,7 @@ body{
   padding-top: 8px;
 }
 .header h3{
+  white-space: nowrap;
   font-family: 'Quicksand', sans-serif;
   font-size: 20px;
   color: #808080;
@@ -30,9 +35,14 @@ body{
   margin-top: 0px;
   padding-top: 15px;
 }
+p {
+  margin-top: 100px;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+}
 .search{
   height: 42px;
-  width: 900px;
+  width: 400px;
   border-style: none;
   border-radius: 10px;
   background-color: #ededed;
@@ -108,7 +118,7 @@ body{
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  width: 600px;
+  width: 400px;
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
   color:#808080;
@@ -161,7 +171,7 @@ body{
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  width: 600px;
+  width: 400px;
 }
 .title, .take-note{
   border-style: none;
@@ -196,8 +206,8 @@ body{
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
-  margin-left: 70px;
-  margin-right:50px;
+  margin-left: 10px;
+  margin-right:10px;
   margin-top: 80px; /* gutter size offset */
   width: auto;
   height: auto;
@@ -481,4 +491,61 @@ body{
   height: 18px;
   width: 18px;
   padding-left: 3px;
+}
+
+@media only screen and (max-width: 900px) {
+  .my-masonry-grid {
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right:10px;
+    margin-top: 20px;
+    width: 300px;
+    height: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 10px; /* gutter size */
+  }
+  .header{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-gap: 15px;
+    justify-content: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 2px;
+    padding-top: 0px;
+    padding-bottom:0px;
+    margin-bottom: 0px;
+    height: 50px;
+  }
+  .header img{
+    height: 30px;
+    width: 25px;
+    padding-top: 8px;
+  }
+  .header h3{
+    white-space: nowrap;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    color: #808080;
+    font-weight: 550;
+    margin-top: 0px;
+    padding-top: 18px;
+  }
+  .search{
+    width: 200px;
+    padding-left: 10px;
+    margin-left: 10px;
+  }
+  .take-notes1 {
+    width: 80%;
+  }
+  .take-notes2 {
+    width: 80%;
+  }
+  .popup {
+    max-width: 300px;
+    width: 300px;
+  }
 }

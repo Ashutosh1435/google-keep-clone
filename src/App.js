@@ -199,28 +199,48 @@ class App extends React.Component{
         display: 'none'
       }
     };
-    return(
-     
-      <div>
+    return (
+      <React.Fragment>
         <div className="header">
           <img src="./logo.png" />
-          <h3>Keep</h3>
-          <input className="search" type="text" placeholder="Search" value={this.state.search ? this.state.search : ""} onChange={(e)=>this.handleSearch(e.target.value)}/>
+          <h3>Google Keep Clone</h3>
+          <input
+            className="search"
+            type="text"
+            placeholder="Search"
+            value={this.state.search ? this.state.search : ""}
+            onChange={(e) => this.handleSearch(e.target.value)}
+          />
         </div>
-        <hr></hr>
+        {/* <hr></hr> */}
         <div className="content">
           <Router>
-            <div className="navigation"> 
-              <Link to="/" className="nav-home"><img alt="home" className="home" src="./note.png"/></Link>
-              <Link to="/trash" className="nav-trash"><img alt="trash" className="trash" src="./del.png"/></Link>
+            <div className="navigation">
+              <Link to="/" className="nav-home">
+                <img alt="home" className="home" src="./note.png" />
+              </Link>
+              <Link to="/trash" className="nav-trash">
+                <img alt="trash" className="trash" src="./del.png" />
+              </Link>
             </div>
             <Switch>
-              <Route exact path="/" render={()=><Home state={this.state} styles={styles} {...this.actions}/>}/>
-              <Route path="/trash" render={()=><Trash state={this.state} styles={styles} {...this.actions}/>}/>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Home state={this.state} styles={styles} {...this.actions} />
+                )}
+              />
+              <Route
+                path="/trash"
+                render={() => (
+                  <Trash state={this.state} styles={styles} {...this.actions} />
+                )}
+              />
             </Switch>
           </Router>
         </div>
-       </div>
+      </React.Fragment>
     );
   };
 }
