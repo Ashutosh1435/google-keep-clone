@@ -43,10 +43,14 @@ const Home = ({ state, styles, ...actions }) => {
           >
             {(!state.search ? state.notes_list : state.search_list)
               .filter((n) => {
-                return n.id !== state.pinned_id && n.id !== state.popUp_id;
+                return n.id !== state.popUp_id;
               })
               .map((item, index) => (
-                <li key={index} className="list-item">
+                <li
+                  key={index}
+                  className="list-item"
+                  style={{ background: item.color }}
+                >
                   <span className="span1">{item.title} </span>
                   <span className="span2">{item.input}</span>
                   <button

@@ -13,7 +13,11 @@ const Trash = ({state, ...actions}) => {
               columnClassName="my-masonry-grid_column"
             >
               {state.trash_list.map((item, index) => (
-                <li key={index} className="trash-item">
+                <li
+                  key={index}
+                  className="trash-item"
+                  style={{ background: item.color }}
+                >
                   <span className="span1">{item.title}</span>
                   <span className="span2">{item.input}</span>
                   <button

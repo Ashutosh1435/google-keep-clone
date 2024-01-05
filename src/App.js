@@ -15,41 +15,41 @@ class App extends React.Component{
       search: null,
       edited_note: {
         title: "",
-        input: ""
+        input: "",
+        color: "white",
       },
       notes: {
         title: "",
-        input: ""
+        input: "",
+        color: "white",
       },
       deleted_note: {
         title: "",
-        input: ""
+        input: "",
+        color: "white",
       },
       search_list: [],
-      notes_list: [], 
+      notes_list: [],
       visible: false,
-      pinned_id: null,
       showPopUp: false,
       popUp_id: null,
-      trash_list: []
+      trash_list: [],
     };
+    this.handleChangeColor = this.handleChangeColor.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeNote = this.handleChangeNote.bind(this);
     this.addToNotes = this.addToNotes.bind(this);
     this.removeFromNotes = this.removeFromNotes.bind(this);
-    this.removePin = this.removePin.bind(this);
-    this.pinNote = this.pinNote.bind(this);
     this.showNote = this.showNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
     this.removeFromTrash = this.removeFromTrash.bind(this);
     this.actions = {
+      handleChangeColor: this.handleChangeColor,
       handleClick: this.handleClick,
       handleChangeNote: this.handleChangeNote,
       addToNotes: this.addToNotes,
       removeFromNotes: this.removeFromNotes,
-      removePin: this.removePin,
-      pinNote: this.pinNote,
       showNote: this.showNote,
       updateNote: this.updateNote,
       removeFromTrash: this.removeFromTrash
@@ -99,6 +99,15 @@ class App extends React.Component{
       }
     });
   }
+  handleChangeColor(value,key, obj="notes"){
+    this.setState({
+      ...this.state,
+      [obj]: {
+        ...this.state[obj],
+        [key]: value
+      }
+    });
+  }
   addToNotes() {
     const notes_list = this.state.notes_list;
     if((this.state.notes.input.length)>0 || (this.state.notes.title.length)>0){
@@ -133,32 +142,13 @@ class App extends React.Component{
       trash_list: trash_list
     });
     const notes_list = this.state.notes_list.filter((note,index)=> { return index !== i; });
-    if(this.state.pinned_id){
     this.setState({
+      showPopUp: false,
       notes_list: notes_list,
-      pinned_id: null
-    });}
-    else{
-      this.setState({
-        showPopUp: false,
-        notes_list: notes_list,
-      });
-    }
+    });
     localStorage.setItem("list", JSON.stringify(notes_list));
     localStorage.setItem("trash",JSON.stringify(trash_list));
-  }
-  pinNote(id) {
-    this.setState({
-      ...this.state,
-      pinned_id: id
-    });
-  }
-  removePin() {
-    this.setState({
-      ...this.state,
-      pinned_id: null
-    });
-  }  
+  } 
   showNote(id) {
     let edited_note = this.state.notes_list.filter(item=>{return item.id === id})[0];
     this.setState({
@@ -171,9 +161,10 @@ class App extends React.Component{
   updateNote(id) {
     let note = this.state.edited_note;
     let containsOnlyOneElement = this.state.notes_list.length === 1;
+    const notes_list = containsOnlyOneElement ? [{id, ...note}] : [{id, ...note}, ...this.state.notes_list.filter(item=>item.id!==id)]
     this.setState({
       ...this.state, 
-      notes_list: (containsOnlyOneElement ? [{id, ...note}] : [{id, ...note}, ...this.state.notes_list.filter(item=>item.id!==id)]),
+      notes_list,
       edited_note: {
         title: "",
         input: ""
@@ -181,6 +172,7 @@ class App extends React.Component{
       showPopUp: false,
       popUp_id: null
     });
+    localStorage.setItem("list", JSON.stringify(notes_list));
   }
   removeFromTrash(id) {
     const trash_list = this.state.trash_list.filter((item) => { return  item.id !== id});
@@ -188,6 +180,7 @@ class App extends React.Component{
       ...this.state,
       trash_list: trash_list
     });
+    localStorage.setItem("trash",JSON.stringify(trash_list));
   }
 
   render() {
